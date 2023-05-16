@@ -4,9 +4,16 @@ import { addMemoToolkit, deleteMemoSplice, toggleLike } from '../slices/memoSlic
 
 export default function MemoComp() {
    const memo = useSelector((state)=>(state.memo));
+   const memoLike = useSelector((state)=>(state.memoLike));
    const [input, setInput] = useState("")
 
    const dispatch = useDispatch()
+
+   const handleToggleLike = (id) => {
+      dispatch(toggleLike(id));
+      console.log("MemoLikeSlice:", memoLike);
+   }
+
    return (
       <div>
          <h1>메모장</h1>
@@ -22,7 +29,7 @@ export default function MemoComp() {
                   <h3>{m.text}</h3>
                   <p>{m.date}</p>
                   <button 
-                  onClick={()=>{dispatch(toggleLike(m.id))}}>
+                  onClick={()=>{handleToggleLike(m.id)}}>
                      {m.isLiked ? "♥" : "♡"}
                   </button>
                   <button 
